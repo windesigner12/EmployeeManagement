@@ -22,7 +22,7 @@ class CitiesResource extends Resource
 
     protected static ?string $navigationLabel = 'City';
 
-    protected static ?string $modelLabel = 'Employees State';
+    protected static ?string $modelLabel = 'Employees City';
     
     protected static ?string $navigationGroup = 'System Managment';
 
@@ -33,9 +33,11 @@ class CitiesResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('states_id')
-                    ->required()
-                    ->numeric(),
+                Forms\Components\Select::make('state_id')
+                    ->relationship(name: 'state', titleAttribute:'name')
+                    ->searchable()
+                    ->preload()
+                    ->required(),    
                 Forms\Components\TextInput::make('name')
                     ->required()
                     ->maxLength(255),
@@ -46,7 +48,7 @@ class CitiesResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('states_id')
+                Tables\Columns\TextColumn::make('state_id')
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('name')
